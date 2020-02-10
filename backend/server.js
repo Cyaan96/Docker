@@ -17,7 +17,7 @@ const dbRoute =  'mongodb+srv://newton:newton@cluster0-veipu.mongodb.net/test?re
 
 
 // connects our back end code with the database
-mongoose.connect(dbRoute, { useNewUrlParser: true });
+mongoose.connect(dbRoute, { useUnifiedTopology: true,useNewUrlParser: true, useCreateIndex: true });
 
 let db = mongoose.connection;
 
