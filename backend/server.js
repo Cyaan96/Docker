@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const Data = require('./data');
 
-const API_PORT = 3001;
+const API_PORT = 8089;
 const app = express();
 app.use(cors());
 const router = express.Router();
@@ -26,6 +26,7 @@ db.once('open', () => console.log('connected to the database'));
 // checks if connection with the database is successful
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+
 // (optional) only made for logging and
 // bodyParser, parses the request body to be a readable json format
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,7 +34,8 @@ app.use(bodyParser.json());
 app.use(logger('dev'));
 
 // this is our get method
-// this method fetches all available data in our database
+// this method fetches all available data in the Server that is 
+//lined to the Database
 router.get('/getData', (req, res) => {
   Data.find((err, data) => {
     if (err) return res.json({ success: false, error: err });
@@ -61,7 +63,7 @@ router.delete('/deleteData', (req, res) => {
   });
 });
 
-// this is our create methid
+// this is our create method
 // this method adds new data in our database
 router.post('/putData', (req, res) => {
   let data = new Data();
@@ -82,7 +84,8 @@ router.post('/putData', (req, res) => {
   });
 });
 
-// append /api for our http requests
+// append '/api' for our http requests
+// 'localhost:<PORT> can be used to view data saved on the backend Server'
 app.use('/api', router);
 
 // launch our backend into a port
